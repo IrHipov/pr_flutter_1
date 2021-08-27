@@ -6,8 +6,6 @@ typedef String? Validator(String? value);
 typedef String? ValidatorFieldConfirm(String? pass, String? confirmPass);
 
 class InputWidget extends StatefulWidget {
-  final GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
-
   TextEditingController? fieldController;
   String _label = '';
   Validator? validator;
@@ -32,17 +30,13 @@ class InputWidget extends StatefulWidget {
     };
   }
 
-  void onChange(String value){
-    // if (_formKey.currentState!.validate()) {
-    //   print(122);
-    // }
-  }
-
   @override
   _InputWidgetState createState() => _InputWidgetState();
 }
 
 class _InputWidgetState extends State<InputWidget> {
+  final GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
+
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(32.0),
     borderSide: BorderSide(color: AppColors.mainColor, width: 1.0),
@@ -53,13 +47,18 @@ class _InputWidgetState extends State<InputWidget> {
     borderSide: BorderSide(color: AppColors.errorColor, width: 1.0),
   );
 
+  // void onChange(String value){
+  //   if (_formKey.currentState!.validate()) {
+  //     print(122);
+  //   }
+  // }
+
   // var focusNode = FocusNode();
   //
   // @override
   // void initState() {
   //   focusNode.addListener(() {
   //     print(focusNode.hasFocus);
-  //     widget._formKey.currentWidget.
   //   });
   //   super.initState();
   // }
@@ -78,8 +77,8 @@ class _InputWidgetState extends State<InputWidget> {
         ),
         TextFormField(
           // focusNode: focusNode,
-          key: widget._formKey,
-          onChanged: widget.onChange,
+          key: _formKey,
+          // onChanged: onChange,
           controller: widget.fieldController,
           validator: widget.validator,
           style: TextStyle(),
